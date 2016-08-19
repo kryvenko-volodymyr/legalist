@@ -8,15 +8,14 @@
     </parent>
     <artifactId>legalist-service-api</artifactId>
     <packaging>jar</packaging>
+    <name>legalist-service-api</name>
     
     <dependencies>
         <dependency>
             <groupId>ua.legalist</groupId>
             <artifactId>legalist-persistence-api</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
     
-    <name>legalist-service-api</name>
 </project>

@@ -8,6 +8,7 @@
     </parent>
     <artifactId>legalist-persistence-api</artifactId>
     <packaging>jar</packaging>
+    <name>legalist-persistence-api</name>
     
     <dependencies>
         <dependency>
@@ -16,5 +17,5 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
-    <name>legalist-persistence-api</name>
+    
 </project>

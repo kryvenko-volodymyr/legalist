@@ -11,3 +11,8 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 /legalist-webapp/target/
+/legalist-model/target/
+/legalist-service-api/target/
+/legalist-persistence/target/
+/legalist-persistence-api/target/
+/legalist-service/target/

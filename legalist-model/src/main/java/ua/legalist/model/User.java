@@ -46,7 +46,7 @@ public class User implements Serializable {
     private String familyName;
     @Column(name = "patronymic")
     private String patronymic;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Collection<Process> processCollection;
 
     public User() {
@@ -148,7 +148,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "ua.com.legalist.model.User[ id=" + id + " ]";
+        return "ua.legalist.model.User[ id=" + id + " ]";
     }
     
 }

@@ -107,7 +107,7 @@ public class Template implements Serializable {
 
     @Override
     public String toString() {
-        return "ua.com.legalist.model.Template[ id=" + id + " ]";
+        return "ua.legalist.model.Template[ id=" + id + " ]";
     }
     
 }

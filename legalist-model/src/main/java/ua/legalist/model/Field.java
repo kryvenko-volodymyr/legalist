@@ -43,13 +43,13 @@ public class Field implements Serializable {
     @Column(name = "group_id")
     private Integer groupId;
     @JoinTable(name = "node-field", joinColumns = {
-        @JoinColumn(name = "field_id", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "node_id", referencedColumnName = "id")})
+        @JoinColumn(name = "field", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "node", referencedColumnName = "id")})
     @ManyToMany
     private Collection<Node> nodeCollection;
-    @JoinColumn(name = "process_id", referencedColumnName = "id")
+    @JoinColumn(name = "process", referencedColumnName = "id")
     @ManyToOne
-    private Process processId;
+    private Process process;
 
     public Field() {
     }
@@ -104,12 +104,12 @@ public class Field implements Serializable {
         this.nodeCollection = nodeCollection;
     }
 
-    public Process getProcessId() {
-        return processId;
+    public Process getProcess() {
+        return process;
     }
 
-    public void setProcessId(Process processId) {
-        this.processId = processId;
+    public void setProcess(Process process) {
+        this.process = process;
     }
 
     @Override
@@ -134,7 +134,7 @@ public class Field implements Serializable {
 
     @Override
     public String toString() {
-        return "ua.com.legalist.model.Field[ id=" + id + " ]";
+        return "ua.legalist.model.Field[ id=" + id + " ]";
     }
     
 }

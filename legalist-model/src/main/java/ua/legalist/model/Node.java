@@ -43,18 +43,23 @@ public class Node implements Serializable {
     @Column(name = "details")
     private String details;
     @JoinTable(name = "node-template", joinColumns = {
-        @JoinColumn(name = "node_id", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "template_id", referencedColumnName = "id")})
+        @JoinColumn(name = "node", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "template", referencedColumnName = "id")})
     @ManyToMany
     private Collection<Template> templateCollection;
     @ManyToMany(mappedBy = "nodeCollection")
     private Collection<Field> fieldCollection;
-    @OneToMany(mappedBy = "parentNodeId")
+    @OneToMany(mappedBy = "parentNode")
     private Collection<Node> nodeCollection;
-    @JoinColumn(name = "parent_node_id", referencedColumnName = "id")
+    @JoinColumn(name = "parent_node", referencedColumnName = "id")
     @ManyToOne
-    private Node parentNodeId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nodeId")
+    private Node parentNode;
+    @OneToMany(mappedBy = "referredNode")
+    private Collection<Node> nodeCollection1;
+    @JoinColumn(name = "referred_node", referencedColumnName = "id")
+    @ManyToOne
+    private Node referredNode;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "node")
     private Collection<Process> processCollection;
 
     public Node() {
@@ -118,12 +123,28 @@ public class Node implements Serializable {
         this.nodeCollection = nodeCollection;
     }
 
-    public Node getParentNodeId() {
-        return parentNodeId;
+    public Node getParentNode() {
+        return parentNode;
     }
 
-    public void setParentNodeId(Node parentNodeId) {
-        this.parentNodeId = parentNodeId;
+    public void setParentNode(Node parentNode) {
+        this.parentNode = parentNode;
+    }
+
+    public Collection<Node> getNodeCollection1() {
+        return nodeCollection1;
+    }
+
+    public void setNodeCollection1(Collection<Node> nodeCollection1) {
+        this.nodeCollection1 = nodeCollection1;
+    }
+
+    public Node getReferredNode() {
+        return referredNode;
+    }
+
+    public void setReferredNode(Node referredNode) {
+        this.referredNode = referredNode;
     }
 
     public Collection<Process> getProcessCollection() {
@@ -156,7 +177,7 @@ public class Node implements Serializable {
 
     @Override
     public String toString() {
-        return "ua.com.legalist.model.Node[ id=" + id + " ]";
+        return "ua.legalist.model.Node[ id=" + id + " ]";
     }
     
 }

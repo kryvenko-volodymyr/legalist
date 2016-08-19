@@ -33,13 +33,13 @@ public class Process implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private User userId;
-    @JoinColumn(name = "node_id", referencedColumnName = "id")
+    private User user;
+    @JoinColumn(name = "node", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Node nodeId;
-    @OneToMany(mappedBy = "processId")
+    private Node node;
+    @OneToMany(mappedBy = "process")
     private Collection<Field> fieldCollection;
 
     public Process() {
@@ -57,20 +57,20 @@ public class Process implements Serializable {
         this.id = id;
     }
 
-    public User getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(User userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Node getNodeId() {
-        return nodeId;
+    public Node getNode() {
+        return node;
     }
 
-    public void setNodeId(Node nodeId) {
-        this.nodeId = nodeId;
+    public void setNode(Node node) {
+        this.node = node;
     }
 
     public Collection<Field> getFieldCollection() {
@@ -103,7 +103,7 @@ public class Process implements Serializable {
 
     @Override
     public String toString() {
-        return "ua.com.legalist.model.Process[ id=" + id + " ]";
+        return "ua.legalist.model.Process[ id=" + id + " ]";
     }
     
 }

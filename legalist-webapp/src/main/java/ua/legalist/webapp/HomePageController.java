@@ -19,6 +19,9 @@ public class HomePageController {
     
     @GetMapping("/index")
     public Model index (Model model) {
+        model.addAttribute("nodes", nodeService.getAll());
+        model.addAttribute("simpleHierarchy", nodeService.getSimpleHierarchy());
+        model.addAttribute("fullHierarchy", nodeService.getFullHierarchy());
         return model;
     }
 }

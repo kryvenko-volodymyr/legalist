@@ -1,5 +1,3 @@
-/*
- */
 package ua.legalist.model;
 
 import java.io.Serializable;
@@ -20,10 +18,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-/**
- *
- * @author Kryvenko
- */
 @Entity
 @Table(name = "node")
 @NamedQueries({
@@ -31,34 +25,44 @@ import javax.persistence.Table;
 public class Node implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    
     @Basic(optional = false)
     @Column(name = "title")
     private String title;
+    
     @Basic(optional = false)
     @Column(name = "details")
     private String details;
+    
     @JoinTable(name = "node-template", joinColumns = {
         @JoinColumn(name = "node", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "template", referencedColumnName = "id")})
     @ManyToMany
     private Collection<Template> templateCollection;
+    
     @ManyToMany(mappedBy = "nodeCollection")
     private Collection<Field> fieldCollection;
+    
     @OneToMany(mappedBy = "parentNode")
     private Collection<Node> nodeCollection;
+    
     @JoinColumn(name = "parent_node", referencedColumnName = "id")
     @ManyToOne
     private Node parentNode;
+    
     @OneToMany(mappedBy = "referredNode")
     private Collection<Node> nodeCollection1;
+    
     @JoinColumn(name = "referred_node", referencedColumnName = "id")
     @ManyToOne
     private Node referredNode;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "node")
     private Collection<Process> processCollection;
 
@@ -179,5 +183,5 @@ public class Node implements Serializable {
     public String toString() {
         return "ua.legalist.model.Node[ id=" + id + " ]";
     }
-    
+
 }

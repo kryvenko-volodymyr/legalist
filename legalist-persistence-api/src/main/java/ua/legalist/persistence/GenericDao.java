@@ -3,6 +3,8 @@
 package ua.legalist.persistence;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
 
 /**
  *
@@ -17,4 +19,6 @@ public interface GenericDao<T> {
     void update(T transientObject);
 
     void delete(T persistentObject);
+    
+    Collection<T> getAll ();
 }

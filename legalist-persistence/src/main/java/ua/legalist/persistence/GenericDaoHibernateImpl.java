@@ -4,55 +4,50 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Collection;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaQuery;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public abstract class GenericDaoHibernateImpl<T> implements GenericDao<T> {
 
-    private SessionFactory sessionFactory;
+    @PersistenceContext
+    EntityManager entityManager;
+
     private Class<T> type;
 
     public GenericDaoHibernateImpl() {
         Type t = getClass().getGenericSuperclass();
-        ParameterizedType pt = (ParameterizedType)t;
+        ParameterizedType pt = (ParameterizedType) t;
         type = (Class) pt.getActualTypeArguments()[0];
-    }
-    
-    @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
     }
 
     @Override
-    public Serializable create(Object newInstance) {
-        return getSession().save((T)newInstance);
+    public T create(T newInstance) {
+        entityManager.persist(newInstance);
+        return newInstance;
     }
 
     @Override
     public T read(Serializable id) {
-        return (T)getSession().get(type, id);
+        return entityManager.find(type, id);
     }
 
     @Override
-    public void update(Object transientObject) {
-        getSession().update(transientObject);
+    public T update(T transientObject) {
+        return entityManager.merge(transientObject);
     }
 
     @Override
     public void delete(Object persistentObject) {
-        getSession().delete(persistentObject);
-    }
-    
-    @Override
-    public Collection<T> getAll (){
-        return getSession().createCriteria(type).list();
-    }
-    
-    private Session getSession () {
-        return sessionFactory.getCurrentSession();
+        entityManager.remove((entityManager.merge(persistentObject)));
     }
 
+    @Override
+    public Collection<T> getAll() {
+        CriteriaQuery criteriaQuery = entityManager.getCriteriaBuilder().createQuery();
+        criteriaQuery.select(criteriaQuery.from(type));
+        return entityManager.createQuery(criteriaQuery).getResultList();
+    }
 }

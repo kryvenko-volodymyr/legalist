@@ -1,5 +1,3 @@
-/*
- */
 package ua.legalist.model;
 
 import java.io.Serializable;
@@ -18,10 +16,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-/**
- *
- * @author Kryvenko
- */
 @Entity
 @Table(name = "field")
 @NamedQueries({
@@ -136,5 +130,5 @@ public class Field implements Serializable {
     public String toString() {
         return "ua.legalist.model.Field[ id=" + id + " ]";
     }
-    
+
 }

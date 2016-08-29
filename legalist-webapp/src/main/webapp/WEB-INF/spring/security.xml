@@ -5,6 +5,29 @@
              xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 http://www.springframework.org/schema/security
-http://www.springframework.org/schema/security/spring-security-3.0.xsd">
-
+http://www.springframework.org/schema/security/spring-security.xsd">
+     
+    <beans:bean name="bcryptEncoder"
+                class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+    
+    <http>
+        <!--        <intercept-url pattern="/user" access="hasRole('USER')" />-->
+        <!--        <intercept-url pattern="/**" access="isAnonymous())" />-->
+        <form-login />
+        <logout delete-cookies="JSESSIONID"/>
+    </http>
+    
+    <authentication-manager>
+        <authentication-provider>
+            <user-service>
+                <user name="jimi" password="jimispassword" authorities="ROLE_USER, ROLE_ADMIN" /> 
+                <user name="bob" password="bobspassword" authorities="ROLE_USER" />
+            </user-service>
+        </authentication-provider>
+        <authentication-provider>
+            <password-encoder ref="bcryptEncoder"/>
+            <jdbc-user-service data-source-ref="securityDataSource"/>
+        </authentication-provider>
+    </authentication-manager>
+    
 </beans:beans>

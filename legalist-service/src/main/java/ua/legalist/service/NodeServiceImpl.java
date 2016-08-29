@@ -62,10 +62,7 @@ public class NodeServiceImpl implements NodeService {
         Node result = null;
         int count = 0;
 
-        for (Node node : allNodes) {
-            
-            System.out.println(node + " ::: " + node.getParentNode() + " ::: " + node.getReferredNode());
-            
+        for (Node node : allNodes) {         
             if (node.getParentNode() == null
                     && node.getReferredNode() != null) {
                 if (++count > 1) {

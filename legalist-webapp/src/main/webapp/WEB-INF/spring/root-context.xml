@@ -32,7 +32,9 @@
     <import resource="data.xml" />
     
     <!-- Файл с настройками безопасности -->
-    <import resource="security.xml" />
+    <!--    <import resource="security.xml" />-->
+    <!--    Using ua.legalist.webapp.config.SecurityWebInitializer instead-->
+    
     
     
         

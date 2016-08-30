@@ -39,8 +39,19 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
     
+    <!--   Using ua.legalist.webapp.config.SecurityWebInitializer instead-->
+    <!--    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>-->
+    
+    <!--    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>-->
+    
     <!-- Фильтр для перекодировки в utf8 -->
-    <filter>
+    <!--    <filter>
         <filter-name>charsetFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
         <init-param>
@@ -53,19 +64,9 @@
         </init-param>
     </filter>
     
-    <filter>
-        <filter-name>springSecurityFilterChain</filter-name>
-        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-    </filter>
-    
     <filter-mapping>
         <filter-name>charsetFilter</filter-name>
         <url-pattern>/*</url-pattern>
-    </filter-mapping>
-    
-    <filter-mapping>
-        <filter-name>springSecurityFilterChain</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
+    </filter-mapping>-->
     
 </web-app>

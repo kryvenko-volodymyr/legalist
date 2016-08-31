@@ -13,7 +13,7 @@ public class HomePageController {
     @Autowired
     NodeService nodeService;
     
-    @GetMapping("/")
+    @GetMapping("/**")
     public String defauldPath () {
         return "redirect:/index";
     }
@@ -27,8 +27,12 @@ public class HomePageController {
     }
     
     @GetMapping("/user")
-    @ResponseBody
-    public String user () {
-        return "This is a user page";
+    public Model user (Model model) {
+        return model;
     }
+    
+//    @GetMapping("/login")
+//    public Model login (Model model) {
+//        return model;
+//    }
 }

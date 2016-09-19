@@ -4,16 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import ua.legalist.service.NodeService;
 
 @Controller
-public class HomePageController {
+public class JspDispatcher {
     
     @Autowired
     NodeService nodeService;
     
-    @GetMapping("/**")
+    @GetMapping("/")
     public String defauldPath () {
         return "redirect:/index";
     }

@@ -6,13 +6,15 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
-@EnableWebMvcSecurity
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled=true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -37,21 +39,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .formLogin()
-                .loginPage("/login")
-                .and()
-                .rememberMe()
-                .tokenValiditySeconds(10)
-                .key("legalistKey") 
-                .and()
-                .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/index")
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout")) //for CSRF. uses GET - not recommended
-                .and()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/user").access("hasRole('ROLE_USER')")
-                .anyRequest().permitAll();
+        http.csrf().disable()
+                .authorizeRequests().anyRequest().permitAll();
+//                http.formLogin()
+//                .loginPage("/login")
+//                .and()
+//                .rememberMe()
+//                .tokenValiditySeconds(3600)
+//                .key("legalistKey") 
+//                .and()
+//                .logout()
+//                .logoutUrl("/logout")
+//                .logoutSuccessUrl("/index")
+//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout")) //for CSRF. uses GET - not recommended
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers(HttpMethod.GET, "/users/**").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+//                .anyRequest().permitAll();
     }
 }

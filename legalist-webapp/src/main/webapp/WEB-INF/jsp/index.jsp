@@ -13,8 +13,8 @@
         
 
         <security:authorize access="not isAuthenticated()">
-            <h3>Custom login with Username and Password</h3>
-            <form name='f' action='/legalist/login' method='POST'>
+            <h3>Home</h3>
+            <form name='login' action='/legalist/login' method='POST'>
                 <table>
                     <tr><td>User:</td><td>
                             <input type='text' name='username' value=''></td></tr>
@@ -34,30 +34,8 @@
             </form>
         </security:authorize>
         <security:authorize access="isAuthenticated()">
-            <h3>Hello <security:authentication property="principal.username"/></h3>
-            <a href='user'>To user page</a>
-            <br>
             <a href='logout'>Logout</a>
+            <h3>Hello <a href='user'><security:authentication property="principal.username"/></a></h3>
         </security:authorize>
-        <br>
-        <br>
-        <c:forEach var="element" items="${cookie}">
-            <div>${element.key} = ${element.value.value}</div>
-        </c:forEach>
-        <ul>
-            <c:forEach var="node" items="${nodes}">
-                <li>${node.title}</li>
-                </c:forEach>
-        </ul>
-        <ul>
-            <c:forEach var="simpleHierarchyElement" items="${simpleHierarchy}">
-                <li>${simpleHierarchyElement.key.title}</li>
-                </c:forEach>
-        </ul>
-        <ul>
-            <c:forEach var="fullHierarchyElement" items="${fullHierarchy}">
-                <li>${fullHierarchyElement.key.title}</li>
-                </c:forEach>
-        </ul>
     </body>
 </html>

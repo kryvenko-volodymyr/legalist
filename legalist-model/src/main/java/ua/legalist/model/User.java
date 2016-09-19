@@ -1,9 +1,9 @@
-/*
- */
 package ua.legalist.model;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,11 +15,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
-/**
- *
- * @author Kryvenko
- */
 @Entity
 @Table(name = "user")
 @NamedQueries({
@@ -27,39 +24,50 @@ import javax.persistence.Table;
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+
     @Basic(optional = false)
     @Column(name = "email")
     private String email;
+
     @Basic(optional = false)
     @Column(name = "password")
     private String password;
+
     @Column(name = "phone_num")
     private String phoneNum;
+
     @Column(name = "given_name")
     private String givenName;
+
     @Column(name = "family_name")
     private String familyName;
+
     @Column(name = "patronymic")
     private String patronymic;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Collection<Process> processCollection;
-
+    
+    @Transient
+    private String emailConfirmationHash;
+    
+    @Transient
+    private Date datePreCreated;
+    
+    @Transient
+    private Date dateCreated;
+    
     public User() {
     }
 
     public User(Integer id) {
         this.id = id;
-    }
-
-    public User(Integer id, String email, String password) {
-        this.id = id;
-        this.email = email;
-        this.password = password;
     }
 
     public Integer getId() {
@@ -128,8 +136,10 @@ public class User implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 5;
+        hash = 47 * hash + Objects.hashCode(this.id);
+        hash = 47 * hash + Objects.hashCode(this.email);
+        hash = 47 * hash + Objects.hashCode(this.password);
         return hash;
     }
 
@@ -150,5 +160,31 @@ public class User implements Serializable {
     public String toString() {
         return "ua.legalist.model.User[ id=" + id + " ]";
     }
+
+    public String getEmailConfirmationHash() {
+        return emailConfirmationHash;
+    }
+
+    public void setEmailConfirmationHash(String emailConfirmationHash) {
+        this.emailConfirmationHash = emailConfirmationHash;
+    }
+
+    public Date getDatePreCreated() {
+        return datePreCreated;
+    }
+
+    public void setDatePreCreated(Date datePreCreated) {
+        this.datePreCreated = datePreCreated;
+    }
+
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
     
+    
+
 }

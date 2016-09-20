@@ -7,13 +7,14 @@ import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
-@Repository
+@Transactional
 public abstract class GenericDaoHibernateImpl<T> implements GenericDao<T> {
 
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     private Class<T> type;
 

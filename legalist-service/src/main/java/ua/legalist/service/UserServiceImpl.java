@@ -1,6 +1,7 @@
 package ua.legalist.service;
 
 import java.util.Date;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.legalist.model.User;
@@ -42,7 +43,8 @@ public class UserServiceImpl implements UserService {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public User preCreateUser(String email, String password) { //TODO exception if email busy
+    @Transactional
+    private User preCreateUser(String email, String password) { //TODO exception if email busy
         User newUser = new User();
         newUser.setEmail(email);
         newUser.setPassword(password);
@@ -53,7 +55,7 @@ public class UserServiceImpl implements UserService {
         return userDao.create(newUser);
     }
 
-    public void requestEmailCofirmatin(User user) {
+    private void requestEmailCofirmatin(User user) {
         emailConfirmationManager.sendEmailConfirmationRequest(user);
     }
 }

@@ -1,5 +1,6 @@
 package ua.legalist.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -52,17 +53,18 @@ public class User implements Serializable {
     private String patronymic;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonIgnore
     private Collection<Process> processCollection;
-    
+
     @Transient
     private String emailConfirmationHash;
-    
+
     @Transient
     private Date datePreCreated;
-    
+
     @Transient
     private Date dateCreated;
-    
+
     public User() {
     }
 
@@ -184,7 +186,4 @@ public class User implements Serializable {
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
     }
-    
-    
-
 }

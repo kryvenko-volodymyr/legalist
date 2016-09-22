@@ -28,7 +28,7 @@
         </property>
         <property name="jpaProperties">
             <props>
-                <prop key="hibernate.hbm2ddl.auto">validate</prop>
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
                 <prop key="hibernate.dialect">${jdbc.dialect}</prop>
             </props>
         </property>
@@ -63,14 +63,14 @@
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource"
           p:driverClassName="${jdbc.driverClassName}" 
-          p:url="${jdbc.databaseurl}"
+          p:url="${jdbc.devdatabaseurl}"
           p:username="${jdbc.username}" 
           p:password="${jdbc.password}" />
     
     <bean id="securityDataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource"
           p:driverClassName="${jdbc.driverClassName}" 
-          p:url="${jdbc.databaseurl}"
+          p:url="${jdbc.devdatabaseurl}"
           p:username="${jdbc.username}" 
           p:password="${jdbc.password}" />
 

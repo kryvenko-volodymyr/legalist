@@ -1,5 +1,3 @@
-/*
- */
 package ua.legalist.model;
 
 import java.io.Serializable;
@@ -15,14 +13,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-/**
- *
- * @author Kryvenko
- */
 @Entity
-@Table(name = "template")
-@NamedQueries({
-    @NamedQuery(name = "Template.findAll", query = "SELECT t FROM Template t")})
 public class Template implements Serializable {
 
     private static final long serialVersionUID = 1L;

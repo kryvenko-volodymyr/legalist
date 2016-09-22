@@ -13,15 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "node")
-@NamedQueries({
-    @NamedQuery(name = "Node.findAll", query = "SELECT n FROM Node n")})
 public class Node implements Serializable {
 
     private static final long serialVersionUID = 1L;

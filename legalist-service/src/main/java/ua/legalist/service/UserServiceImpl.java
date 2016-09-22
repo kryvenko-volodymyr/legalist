@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
         newUser.setEmailConfirmationHash(
                 emailConfirmationManager.
                 generateEmailConfirmationHash(email, password));
-        newUser.setDatePreCreated(new Date()); //now
+        newUser.setDateCreated(new Date()); //now
         return userDao.create(newUser);
     }
 

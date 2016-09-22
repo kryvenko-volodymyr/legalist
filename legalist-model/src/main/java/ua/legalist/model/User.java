@@ -13,7 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 
 @Entity
 public class User implements Serializable {
@@ -23,40 +22,34 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id")
     private Integer id;
 
     @Basic(optional = false)
-    @Column(name = "email")
     private String email;
 
     @Basic(optional = false)
-    @Column(name = "password")
     private String password;
 
     @Column(name = "phone_num")
     private String phoneNum;
 
     @Column(name = "given_name")
-    private String givenName;
+    private String firstName;
 
     @Column(name = "family_name")
     private String familyName;
 
-    @Column(name = "patronymic")
     private String patronymic;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     @JsonIgnore
     private Collection<Process> processCollection;
 
-    @Transient
+    @Column(name = "email_confirm_hash")
     private String emailConfirmationHash;
 
-    @Transient
-    private Date datePreCreated;
-
-    @Transient
+    @Basic(optional = false)
+    @Column(name = "created")
     private Date dateCreated;
 
     public User() {
@@ -98,12 +91,12 @@ public class User implements Serializable {
         this.phoneNum = phoneNum;
     }
 
-    public String getGivenName() {
-        return givenName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setGivenName(String givenName) {
-        this.givenName = givenName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getFamilyName() {
@@ -163,14 +156,6 @@ public class User implements Serializable {
 
     public void setEmailConfirmationHash(String emailConfirmationHash) {
         this.emailConfirmationHash = emailConfirmationHash;
-    }
-
-    public Date getDatePreCreated() {
-        return datePreCreated;
-    }
-
-    public void setDatePreCreated(Date datePreCreated) {
-        this.datePreCreated = datePreCreated;
     }
 
     public Date getDateCreated() {

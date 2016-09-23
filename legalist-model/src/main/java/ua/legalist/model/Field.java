@@ -3,7 +3,6 @@ package ua.legalist.model;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,25 +16,31 @@ import javax.persistence.ManyToOne;
 public class Field implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id")
     private Integer id;
+
     @Basic(optional = false)
-    @Column(name = "title")
     private String title;
+
     @Basic(optional = false)
-    @Column(name = "details")
     private String details;
-    @Column(name = "group_id")
-    private Integer groupId;
+
+    /**
+     * If there are several similar fields for the same process (e.g. several
+     * children), such fields are divided into bunches.
+     *
+     */
+    private Integer bunch;
+
     @JoinTable(name = "node-field", joinColumns = {
         @JoinColumn(name = "field", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "node", referencedColumnName = "id")})
     @ManyToMany
     private Collection<Node> nodeCollection;
-    @JoinColumn(name = "process", referencedColumnName = "id")
+
     @ManyToOne
     private Process process;
 
@@ -76,12 +81,12 @@ public class Field implements Serializable {
         this.details = details;
     }
 
-    public Integer getGroupId() {
-        return groupId;
+    public Integer getBunch() {
+        return bunch;
     }
 
-    public void setGroupId(Integer groupId) {
-        this.groupId = groupId;
+    public void setBunch(Integer bunch) {
+        this.bunch = bunch;
     }
 
     public Collection<Node> getNodeCollection() {

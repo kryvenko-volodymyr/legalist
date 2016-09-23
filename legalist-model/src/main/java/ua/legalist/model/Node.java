@@ -18,46 +18,48 @@ import javax.persistence.OneToMany;
 public class Node implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     //@Column(name = "id")
     private Integer id;
-    
+
     @Basic(optional = false)
     //@Column(name = "title")
     private String title;
-    
+
     @Basic(optional = false)
     //@Column(name = "details")
     private String details;
-    
-    @JoinTable(name = "node-template", joinColumns = {
-        @JoinColumn(name = "node", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "template", referencedColumnName = "id")})
+
+//    @JoinTable(name = "node-template",
+//            joinColumns = {
+//                @JoinColumn(name = "node", referencedColumnName = "id")},
+//            inverseJoinColumns = {
+//                @JoinColumn(name = "template", referencedColumnName = "id")})
     @ManyToMany
-    private Collection<Template> templateCollection;
-    
-    @ManyToMany(mappedBy = "nodeCollection")
-    private Collection<Field> fieldCollection;
-    
+    private Collection<Template> templates;
+
+    @ManyToMany(mappedBy = "nodes")
+    private Collection<Field> fields;
+
     @OneToMany(mappedBy = "parentNode")
-    private Collection<Node> nodeCollection;
-    
+    private Collection<Node> childNodes;
+
     //@JoinColumn(name = "parent_node", referencedColumnName = "id")
     @ManyToOne
     private Node parentNode;
-    
+
     @OneToMany(mappedBy = "referredNode")
-    private Collection<Node> nodeCollection1;
-    
+    private Collection<Node> referringNodes;
+
     //@JoinColumn(name = "referred_node", referencedColumnName = "id")
     @ManyToOne
     private Node referredNode;
-    
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "node")
-    private Collection<Process> processCollection;
+    private Collection<Process> processes;
 
     public Node() {
     }
@@ -96,28 +98,28 @@ public class Node implements Serializable {
         this.details = details;
     }
 
-    public Collection<Template> getTemplateCollection() {
-        return templateCollection;
+    public Collection<Template> getTemplates() {
+        return templates;
     }
 
-    public void setTemplateCollection(Collection<Template> templateCollection) {
-        this.templateCollection = templateCollection;
+    public void setTemplates(Collection<Template> templates) {
+        this.templates = templates;
     }
 
-    public Collection<Field> getFieldCollection() {
-        return fieldCollection;
+    public Collection<Field> getFields() {
+        return fields;
     }
 
-    public void setFieldCollection(Collection<Field> fieldCollection) {
-        this.fieldCollection = fieldCollection;
+    public void setFields(Collection<Field> fields) {
+        this.fields = fields;
     }
 
-    public Collection<Node> getNodeCollection() {
-        return nodeCollection;
+    public Collection<Node> getChildNodes() {
+        return childNodes;
     }
 
-    public void setNodeCollection(Collection<Node> nodeCollection) {
-        this.nodeCollection = nodeCollection;
+    public void setChildNodes(Collection<Node> childNodes) {
+        this.childNodes = childNodes;
     }
 
     public Node getParentNode() {
@@ -128,12 +130,12 @@ public class Node implements Serializable {
         this.parentNode = parentNode;
     }
 
-    public Collection<Node> getNodeCollection1() {
-        return nodeCollection1;
+    public Collection<Node> getReferringNodes() {
+        return referringNodes;
     }
 
-    public void setNodeCollection1(Collection<Node> nodeCollection1) {
-        this.nodeCollection1 = nodeCollection1;
+    public void setReferringNodes(Collection<Node> referringNodes) {
+        this.referringNodes = referringNodes;
     }
 
     public Node getReferredNode() {
@@ -144,12 +146,12 @@ public class Node implements Serializable {
         this.referredNode = referredNode;
     }
 
-    public Collection<Process> getProcessCollection() {
-        return processCollection;
+    public Collection<Process> getProcesses() {
+        return processes;
     }
 
-    public void setProcessCollection(Collection<Process> processCollection) {
-        this.processCollection = processCollection;
+    public void setProcesses(Collection<Process> processes) {
+        this.processes = processes;
     }
 
     @Override

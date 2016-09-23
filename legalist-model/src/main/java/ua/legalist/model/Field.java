@@ -35,11 +35,13 @@ public class Field implements Serializable {
      */
     private Integer bunch;
 
-    @JoinTable(name = "node-field", joinColumns = {
-        @JoinColumn(name = "field", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "node", referencedColumnName = "id")})
+//    @JoinTable(name = "node-field",
+//            joinColumns = {
+//                @JoinColumn(name = "field", referencedColumnName = "id")},
+//            inverseJoinColumns = {
+//                @JoinColumn(name = "node", referencedColumnName = "id")})
     @ManyToMany
-    private Collection<Node> nodeCollection;
+    private Collection<Node> nodes;
 
     @ManyToOne
     private Process process;
@@ -89,12 +91,12 @@ public class Field implements Serializable {
         this.bunch = bunch;
     }
 
-    public Collection<Node> getNodeCollection() {
-        return nodeCollection;
+    public Collection<Node> getNodes() {
+        return nodes;
     }
 
-    public void setNodeCollection(Collection<Node> nodeCollection) {
-        this.nodeCollection = nodeCollection;
+    public void setNodes(Collection<Node> nodes) {
+        this.nodes = nodes;
     }
 
     public Process getProcess() {

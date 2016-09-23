@@ -28,8 +28,8 @@ public class Template implements Serializable {
     //@Column(name = "url")
     private String url;
     
-    @ManyToMany(mappedBy = "templateCollection")
-    private Collection<Node> nodeCollection;
+    @ManyToMany(mappedBy = "templates")
+    private Collection<Node> nodes;
 
     public Template() {
     }
@@ -68,12 +68,12 @@ public class Template implements Serializable {
         this.url = url;
     }
 
-    public Collection<Node> getNodeCollection() {
-        return nodeCollection;
+    public Collection<Node> getNodes() {
+        return nodes;
     }
 
-    public void setNodeCollection(Collection<Node> nodeCollection) {
-        this.nodeCollection = nodeCollection;
+    public void setNodes(Collection<Node> nodes) {
+        this.nodes = nodes;
     }
 
     @Override

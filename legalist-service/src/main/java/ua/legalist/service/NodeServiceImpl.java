@@ -80,8 +80,8 @@ public class NodeServiceImpl implements NodeService {
     private Map<Node, Map> getLowerHierarchLevel(Node node) {
         Map<Node, Map> result = new HashMap<>();
 
-        if (node.getNodeCollection() != null) {
-            for (Node childNode : node.getNodeCollection()) {
+        if (node.getChildNodes() != null) {
+            for (Node childNode : node.getChildNodes()) {
                 result.put(childNode, this.getLowerHierarchLevel(childNode));
             }
         }

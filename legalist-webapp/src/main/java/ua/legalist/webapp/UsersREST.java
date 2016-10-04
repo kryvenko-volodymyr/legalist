@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ua.legalist.model.User;
@@ -12,6 +13,7 @@ import ua.legalist.service.UserService;
 import ua.legalist.service.util.ComplianceMonitor;
 
 @RestController
+@RequestMapping("/api/users")
 public class UsersREST {
 
     @Autowired
@@ -20,12 +22,12 @@ public class UsersREST {
     @Autowired
     ComplianceMonitor complianceMonitor;
 
-    @GetMapping("/users/{userId}")
+    @GetMapping("/{userId}")
     public User usersGet(@PathVariable int userId) {
         return userService.getUserById(userId);
     }
 
-    @PostMapping("/users")
+    @PostMapping("/")
     public void usersPost(
             @RequestParam(name = "email", required = true) String email,
             @RequestParam(name = "password", required = true) String password,
@@ -38,7 +40,7 @@ public class UsersREST {
         userService.prepareNewUser(email, password);
     }
 
-    @GetMapping("/users/email-confirmation")
+    @GetMapping("/email-confirmation")
     public void usersConfirmationGet(
             @RequestParam(name = "hash", required = true) String hash) {
         userService.confirmNewUser(hash);

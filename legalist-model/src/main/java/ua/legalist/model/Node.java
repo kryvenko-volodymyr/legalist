@@ -58,8 +58,14 @@ public class Node implements Serializable {
     @ManyToOne
     private Node referredNode;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "node")
+    /**
+     * Processes incorporating the node
+     */
+    @ManyToMany(mappedBy = "nodes")
     private Collection<Process> processes;
+    
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "node")
+//    private Collection<Process> processes;
 
     public Node() {
     }

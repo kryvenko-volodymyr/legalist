@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -17,19 +18,37 @@ public class Process implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
+    /**
+     * Primary key in database
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     private Integer id;
     
+    /**
+     * User who owns the process
+     */
     @ManyToOne(optional = false)
     private User user;
     
-    @ManyToOne(optional = false)
-    private Node node;
+    /**
+     * Nodes constituting the process
+     */
+    @ManyToMany
+    private Collection<Node> nodes;
     
+    
+//    @ManyToOne(optional = false)
+//    private Node node;
+    
+    /**
+     * Fields belonging to exactly this process
+     */
     @OneToMany(mappedBy = "process")
     private Collection<Field> fieldCollection;
+    
+    
 
     public Process() {
     }
@@ -54,13 +73,13 @@ public class Process implements Serializable {
         this.user = user;
     }
 
-    public Node getNode() {
-        return node;
-    }
-
-    public void setNode(Node node) {
-        this.node = node;
-    }
+//    public Node getNode() {
+//        return node;
+//    }
+//
+//    public void setNode(Node node) {
+//        this.node = node;
+//    }
 
     public Collection<Field> getFieldCollection() {
         return fieldCollection;
@@ -93,6 +112,14 @@ public class Process implements Serializable {
     @Override
     public String toString() {
         return "ua.legalist.model.Process[ id=" + id + " ]";
+    }
+
+    public Collection<Node> getNodes() {
+        return nodes;
+    }
+
+    public void setNodes(Collection<Node> nodes) {
+        this.nodes = nodes;
     }
     
 }

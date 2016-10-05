@@ -89,4 +89,9 @@ public class NodeServiceImpl implements NodeService {
 
     }
 
+    @Override
+    public Node getNodeById(int nodeId) {
+        return nodeDao.read(nodeId);
+    }
+
 }

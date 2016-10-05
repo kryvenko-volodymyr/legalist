@@ -23,7 +23,7 @@ public class UsersREST {
     ComplianceMonitor complianceMonitor;
 
     @GetMapping("/{userId}")
-    public User usersGet(@PathVariable int userId) {
+    public User userGet(@PathVariable int userId) {
         return userService.getUserById(userId);
     }
 
@@ -40,6 +40,11 @@ public class UsersREST {
         userService.prepareNewUser(email, password);
     }
 
+    /**
+     * Accessed through link in a Please-confirm-your-email letter
+     * during user registration.
+     * @param hash 
+     */
     @GetMapping("/email-confirmation")
     public void usersConfirmationGet(
             @RequestParam(name = "hash", required = true) String hash) {

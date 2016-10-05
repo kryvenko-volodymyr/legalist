@@ -11,4 +11,6 @@ public interface NodeService {
     Map<Node,Map> getFullHierarchy();
     
     Map<Node,Map> getSimpleHierarchy();
+
+    Node getNodeById(int nodeId);
 }

@@ -13,4 +13,6 @@ public interface NodeService {
     Map<Node,Map> getSimpleHierarchy();
 
     Node getNodeById(int nodeId);
+    
+    Node create (Node node);
 }

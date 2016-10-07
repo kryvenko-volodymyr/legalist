@@ -54,7 +54,9 @@ public class NodeServiceImpl implements NodeService {
                 result = node;
             }
         }
-        if (result == null) throw new RuntimeException ("No root full node found");
+        if (result == null) {
+            throw new RuntimeException("No root full node found");
+        }
         return result;
     }
 
@@ -62,7 +64,7 @@ public class NodeServiceImpl implements NodeService {
         Node result = null;
         int count = 0;
 
-        for (Node node : allNodes) {         
+        for (Node node : allNodes) {
             if (node.getParentNode() == null
                     && node.getReferredNode() != null) {
                 if (++count > 1) {
@@ -73,7 +75,9 @@ public class NodeServiceImpl implements NodeService {
                 result = node;
             }
         }
-        if (result == null) throw new RuntimeException ("No root simple node found");
+        if (result == null) {
+            throw new RuntimeException("No root simple node found");
+        }
         return result;
     }
 
@@ -92,6 +96,11 @@ public class NodeServiceImpl implements NodeService {
     @Override
     public Node getNodeById(int nodeId) {
         return nodeDao.read(nodeId);
+    }
+
+    @Override
+    public Node create(Node node) {
+        return nodeDao.create(node);
     }
 
 }

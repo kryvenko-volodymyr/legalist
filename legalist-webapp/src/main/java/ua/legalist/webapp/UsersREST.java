@@ -2,6 +2,8 @@ package ua.legalist.webapp;
 
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,20 +30,20 @@ public class UsersREST {
     }
 
     @PostMapping("/")
-    public void usersPost(
+    public ResponseEntity<Void> usersPost(
             @RequestParam(name = "email", required = true) String email,
             @RequestParam(name = "password", required = true) String password,
             HttpServletRequest request) {
         if (complianceMonitor.isUserPreRegAbuse(request)) {
-            //TODO: infrom user about abuse (maybe, using HTTP error code)
-            return;
-        }
-        //TODO: REST API for "email busy" check with 
+            return new ResponseEntity<>(HttpStatus.TOO_MANY_REQUESTS);
+        } 
+        //TODO: REST API for "email busy" check
         userService.prepareNewUser(email, password);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     /**
-     * Accessed through link in a Please-confirm-your-email letter
+     * Accessed through link in Please-confirm-your-email letter
      * during user registration.
      * @param hash 
      */

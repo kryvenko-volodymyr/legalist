@@ -103,4 +103,9 @@ public class NodeServiceImpl implements NodeService {
         return nodeDao.create(node);
     }
 
+    @Override
+    public Node update(Node node) {
+        return nodeDao.update(node);
+    }
+
 }

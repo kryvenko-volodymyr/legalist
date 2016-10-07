@@ -15,4 +15,6 @@ public interface NodeService {
     Node getNodeById(int nodeId);
     
     Node create (Node node);
+
+    Node update(Node node);
 }

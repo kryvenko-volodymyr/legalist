@@ -2,6 +2,7 @@ package ua.legalist.service.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.legalist.model.Node;
 import ua.legalist.service.FieldService;
 import ua.legalist.service.NodeService;
 import ua.legalist.service.ProcessService;
@@ -28,10 +29,18 @@ public class StubDataLoaderImpl implements StubDataLoader {
     public void load() {
         if (!dataLoaded) {
             loadStubDataToDB();
+            dataLoaded = true;
         }
     }
 
     private void loadStubDataToDB() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        createRootFullNode();
+    }
+    
+    private void createRootFullNode () {
+        Node newRootFullNode = new Node();
+        newRootFullNode.setTitle("Root Full Node");
+        newRootFullNode.setDetails("This is the ROOT FULL node");
+        newRootFullNode = nodeService.create(newRootFullNode);
     }
 }

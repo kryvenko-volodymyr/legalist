@@ -1,5 +1,6 @@
 package ua.legalist.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -38,19 +39,24 @@ public class Node implements Serializable {
 //                @JoinColumn(name = "node", referencedColumnName = "id")},
 //            inverseJoinColumns = {
 //                @JoinColumn(name = "template", referencedColumnName = "id")})
+    @JsonIgnore
     @ManyToMany
     private Collection<Template> templates;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "nodes")
     private Collection<Field> fields;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "parentNode")
     private Collection<Node> childNodes;
 
     //@JoinColumn(name = "parent_node", referencedColumnName = "id")
+    @JsonIgnore
     @ManyToOne
     private Node parentNode;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "referredNode")
     private Collection<Node> referringNodes;
 
@@ -61,12 +67,12 @@ public class Node implements Serializable {
     /**
      * Processes incorporating the node
      */
+    @JsonIgnore
     @ManyToMany(mappedBy = "nodes")
     private Collection<Process> processes;
-    
+
 //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "node")
 //    private Collection<Process> processes;
-
     public Node() {
     }
 
@@ -184,5 +190,4 @@ public class Node implements Serializable {
     public String toString() {
         return "ua.legalist.model.Node[ id=" + id + " ]";
     }
-
 }

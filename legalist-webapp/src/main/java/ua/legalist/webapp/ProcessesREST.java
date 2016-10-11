@@ -34,7 +34,7 @@ public class ProcessesREST {
     public ResponseEntity<Void> processesPost(@RequestBody Node node, UriComponentsBuilder ucBuilder) {
         Process process = processService.createProcess(node);
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/process/{id}").buildAndExpand(process.getId()).toUri());
+        headers.setLocation(ucBuilder.path("/api/processes/{id}").buildAndExpand(process.getId()).toUri());
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 

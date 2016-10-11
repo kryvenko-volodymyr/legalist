@@ -2,41 +2,52 @@ package ua.legalist.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.legalist.model.Node;
 import ua.legalist.model.Process;
 import ua.legalist.persistence.ProcessDao;
+import ua.legalist.process.factories.ProcessFactory;
 
 @Service("processService")
+@Transactional
 public class ProcessServiceImpl implements ProcessService {
 
     @Autowired
     ProcessDao processDao;
-    
+
+    @Autowired
+    ProcessFactory processFactory;
+
+    @Autowired
+    NodeService nodeService;
+
     @Override
     public Process getProcessById(int processId) {
         return processDao.read(processId);
     }
 
+    // TODO: this method sould also accept User object to bind the new process to
+    // and make Process.user "optional = false"
     @Override
     public Process createProcess(Node node) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        node = nodeService.getNodeById(node.getId());
+        Process process = processFactory.newProcess(node);
+        return processDao.create(process);
     }
 
     @Override
     public Node processAddNode(int processId, int nodeId) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void update(Process process) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void deleteById(int processId) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        throw new UnsupportedOperationException("Not supported yet.");
     }
-    
-    
 
 }

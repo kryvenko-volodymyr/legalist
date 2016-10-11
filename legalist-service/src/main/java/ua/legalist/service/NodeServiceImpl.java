@@ -2,19 +2,26 @@ package ua.legalist.service;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.legalist.model.Node;
 import ua.legalist.persistence.NodeDao;
+import ua.legalist.process.factories.NodeFactory;
 
-@Transactional
 @Service("nodeService")
+@Transactional
 public class NodeServiceImpl implements NodeService {
 
     @Autowired
     NodeDao nodeDao;
+
+    @Autowired
+    NodeFactory nodeFactory;
 
     @Override
     public Collection<Node> getAll() {
@@ -99,13 +106,33 @@ public class NodeServiceImpl implements NodeService {
     }
 
     @Override
-    public Node create(Node node) {
+    public Node create(String title, String details) {
+        Node node = nodeFactory.newNode(title, details);
         return nodeDao.create(node);
     }
 
     @Override
     public Node update(Node node) {
         return nodeDao.update(node);
+    }
+
+    @Override
+    public Node getUltimategetReferredNode(Node node) {
+        while (node.getReferredNode() != null) {
+            node = node.getReferredNode();
+        }
+        return node;
+    }
+
+    @Override
+    public List<Node> getNodeGenealogy(Node node) {
+        List<Node> nodes = new LinkedList<>();
+
+        while (node.getParentNode() != null) {
+            nodes.add(node);
+            node = node.getParentNode();
+        }
+        return nodes;
     }
 
 }

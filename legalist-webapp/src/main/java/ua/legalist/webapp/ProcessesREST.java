@@ -17,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import ua.legalist.model.Node;
 import ua.legalist.service.ProcessService;
 import ua.legalist.model.Process;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/processes")
@@ -25,16 +26,16 @@ public class ProcessesREST {
     @Autowired
     ProcessService processService;
 
-    @GetMapping("{processId}")
+    @GetMapping("/{processId}")
     public Process processGet(@PathVariable int processId) {
         return processService.getProcessById(processId);
     }
 
     @PostMapping("/")
-    public ResponseEntity<Void> processesPost(@RequestBody Node node, UriComponentsBuilder ucBuilder) {
-        Process process = processService.createProcess(node);
+    public ResponseEntity<Void> processesPost(@RequestBody Node detachedNode, UriComponentsBuilder ucBuilder) {
+        Process persistentProcess = processService.createProcess(detachedNode);
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/api/processes/{id}").buildAndExpand(process.getId()).toUri());
+        headers.setLocation(ucBuilder.path("/api/processes/{id}").buildAndExpand(persistentProcess.getId()).toUri());
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
@@ -43,6 +44,11 @@ public class ProcessesREST {
             @RequestParam("nodeId") int nodeId) {
         processService.processAddNode(processId, nodeId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    
+    @GetMapping("/{processId}/nodes")
+    public List<Node> processNodesGet (@PathVariable int processId) {
+        return processService.getProcessPath(processId);
     }
 
     @PutMapping("/{processId}")

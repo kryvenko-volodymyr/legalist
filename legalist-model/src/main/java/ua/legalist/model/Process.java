@@ -33,17 +33,19 @@ public class Process implements Serializable {
     /**
      * User who owns the process
      */
+    @JsonIgnore
     @ManyToOne //(optional = false) TODO: this must me uncommented in production
     private User user;
     
     /**
      * Nodes constituting the process path
      */
-    @ManyToMany (fetch=FetchType.EAGER)
-    private List<Node> nodes;
+//    @ManyToMany (fetch=FetchType.EAGER)
+//    private List<Node> nodes;
     
-//    @ManyToOne(optional = false)
-//    private Node node;
+    @ManyToOne(optional = false)
+    @Basic(optional = false)
+    private Node currentNode;
     
     /**
      * Fields specific to this process
@@ -75,13 +77,13 @@ public class Process implements Serializable {
         this.user = user;
     }
 
-//    public Node getNode() {
-//        return node;
-//    }
-//
-//    public void setNode(Node node) {
-//        this.node = node;
-//    }
+    public Node getCurrentNode() {
+        return currentNode;
+    }
+
+    public void setCurrentNode(Node currentNode) {
+        this.currentNode = currentNode;
+    }
 
     public Collection<Field> getFieldCollection() {
         return fieldCollection;
@@ -116,12 +118,12 @@ public class Process implements Serializable {
         return "ua.legalist.model.Process[ id=" + id + " ]";
     }
 
-    public List<Node> getNodes() {
-        return nodes;
-    }
-
-    public void setNodes(List<Node> nodes) {
-        this.nodes = nodes;
-    }
+//    public List<Node> getNodes() {
+//        return nodes;
+//    }
+//
+//    public void setNodes(List<Node> nodes) {
+//        this.nodes = nodes;
+//    }
     
 }

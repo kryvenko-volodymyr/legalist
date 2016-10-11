@@ -1,5 +1,6 @@
 package ua.legalist.service;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,10 +30,11 @@ public class ProcessServiceImpl implements ProcessService {
     // TODO: this method sould also accept User object to bind the new process to
     // and make Process.user "optional = false"
     @Override
-    public Process createProcess(Node node) {
-        node = nodeService.getNodeById(node.getId());
-        Process process = processFactory.newProcess(node);
-        return processDao.create(process);
+    public Process createProcess(Node detachedNode) {
+        Node persistentNode = nodeService.getNodeById(detachedNode.getId());
+        Process transientProcess = processFactory.newProcess(persistentNode);
+        Process persistentProcess = processDao.create(transientProcess);
+        return persistentProcess;
     }
 
     @Override
@@ -48,6 +50,13 @@ public class ProcessServiceImpl implements ProcessService {
     @Override
     public void deleteById(int processId) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public List<Node> getProcessPath(int processId) {
+        Process persistentProcess = getProcessById(processId);
+        Node persistentCurrentNode = persistentProcess.getCurrentNode();
+        return nodeService.getNodeGenealogy(persistentCurrentNode);
     }
 
 }

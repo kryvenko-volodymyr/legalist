@@ -1,5 +1,6 @@
 package ua.legalist.service;
 
+import java.util.List;
 import ua.legalist.model.Node;
 import ua.legalist.model.Process;
 
@@ -14,5 +15,7 @@ public interface ProcessService {
     void update(Process process);
 
     void deleteById(int processId);
+    
+    List<Node> getProcessPath (int processId);
 
 }

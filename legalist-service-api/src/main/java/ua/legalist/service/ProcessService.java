@@ -10,7 +10,7 @@ public interface ProcessService {
 
     Process createProcess(Node node);
 
-    Node processAddNode(int processId, int nodeId);
+    void processAddNode(int processId, int nodeId);
 
     void update(Process process);
 

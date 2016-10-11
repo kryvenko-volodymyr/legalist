@@ -1,5 +1,6 @@
 package ua.legalist.webapp;
 
+import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,4 +31,11 @@ public class NodesREST {
     public Node nodeGet(@PathVariable int nodeId) {
         return nodeService.getNodeById(nodeId);
     }
+    
+    @GetMapping("{nodeId}/nodes")
+    public Collection<Node> nodeChildNodesGet(@PathVariable int nodeId) {
+        return nodeService.getNodeChildNodes(nodeId);
+    }
+    
+    
 }

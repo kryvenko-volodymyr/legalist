@@ -31,4 +31,6 @@ public interface NodeService {
     * from the root node up to the Node argument
     */
     List<Node> getNodeGenealogy (Node node);
+
+    public Collection<Node> getNodeChildNodes(int nodeId);
 }

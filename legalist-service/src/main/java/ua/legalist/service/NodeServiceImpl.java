@@ -135,4 +135,14 @@ public class NodeServiceImpl implements NodeService {
         return nodes;
     }
 
+    @Override
+    public Collection<Node> getNodeChildNodes(int nodeId) {
+        Node persistentNode = getNodeById(nodeId);
+        Collection<Node> childNodesDTO = new HashSet();
+        for (Node node : persistentNode.getChildNodes()) {
+            childNodesDTO.add(node);
+        }
+        return childNodesDTO;
+    }
+
 }

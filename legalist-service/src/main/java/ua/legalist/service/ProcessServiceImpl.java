@@ -38,8 +38,14 @@ public class ProcessServiceImpl implements ProcessService {
     }
 
     @Override
-    public Node processAddNode(int processId, int nodeId) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void processAddNode(int processId, int nodeId) {
+        Node persistentNode = nodeService.getNodeById(nodeId);
+        Process persistenProcess = getProcessById(processId);
+        if (persistentNode.getParentNode() == persistenProcess.getCurrentNode()) {
+            persistenProcess.setCurrentNode(persistentNode);
+        } else {
+            throw new IllegalArgumentException("The offered node is not a child of the current node");
+        }
     }
 
     @Override

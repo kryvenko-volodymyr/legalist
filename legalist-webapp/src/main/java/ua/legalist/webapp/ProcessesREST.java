@@ -40,9 +40,13 @@ public class ProcessesREST {
     }
 
     @PutMapping("/{processId}/nodes/{nodeId}")
-    public ResponseEntity<Void> nodesPut(@RequestParam("processId") int processId,
-            @RequestParam("nodeId") int nodeId) {
-        processService.processAddNode(processId, nodeId);
+    public ResponseEntity<Void> nodesPut(@PathVariable int processId,
+            @PathVariable int nodeId) {
+        try {
+            processService.processAddNode(processId, nodeId);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
+        }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     

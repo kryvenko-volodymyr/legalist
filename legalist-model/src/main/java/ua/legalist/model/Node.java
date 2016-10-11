@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,28 +24,19 @@ public class Node implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    //@Column(name = "id")
     private Integer id;
 
     @Basic(optional = false)
-    //@Column(name = "title")
     private String title;
 
     @Basic(optional = false)
-    //@Column(name = "details")
     private String details;
 
-//    @JoinTable(name = "node-template",
-//            joinColumns = {
-//                @JoinColumn(name = "node", referencedColumnName = "id")},
-//            inverseJoinColumns = {
-//                @JoinColumn(name = "template", referencedColumnName = "id")})
     @JsonIgnore
     @ManyToMany
     private Collection<Template> templates;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "nodes")
+    @ManyToMany(mappedBy = "nodes", fetch = FetchType.EAGER)
     private Collection<Field> fields;
 
     @JsonIgnore
@@ -60,7 +52,6 @@ public class Node implements Serializable {
     @OneToMany(mappedBy = "referredNode")
     private Collection<Node> referringNodes;
 
-    //@JoinColumn(name = "referred_node", referencedColumnName = "id")
     @ManyToOne
     private Node referredNode;
 
@@ -73,6 +64,7 @@ public class Node implements Serializable {
 
 //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "node")
 //    private Collection<Process> processes;
+    
     public Node() {
     }
 

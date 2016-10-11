@@ -1,10 +1,14 @@
 package ua.legalist.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
+import java.util.Queue;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,27 +33,25 @@ public class Process implements Serializable {
     /**
      * User who owns the process
      */
-    @ManyToOne(optional = false)
+    @ManyToOne //(optional = false) TODO: this must me uncommented in production
     private User user;
     
     /**
-     * Nodes constituting the process
+     * Nodes constituting the process path
      */
-    @ManyToMany
-    private Collection<Node> nodes;
-    
+    @ManyToMany (fetch=FetchType.EAGER)
+    private List<Node> nodes;
     
 //    @ManyToOne(optional = false)
 //    private Node node;
     
     /**
-     * Fields belonging to exactly this process
+     * Fields specific to this process
      */
+    @JsonIgnore
     @OneToMany(mappedBy = "process")
     private Collection<Field> fieldCollection;
     
-    
-
     public Process() {
     }
 
@@ -114,11 +116,11 @@ public class Process implements Serializable {
         return "ua.legalist.model.Process[ id=" + id + " ]";
     }
 
-    public Collection<Node> getNodes() {
+    public List<Node> getNodes() {
         return nodes;
     }
 
-    public void setNodes(Collection<Node> nodes) {
+    public void setNodes(List<Node> nodes) {
         this.nodes = nodes;
     }
     

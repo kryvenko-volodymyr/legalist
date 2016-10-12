@@ -17,3 +17,5 @@ hs_err_pid*
 /legalist-persistence-api/target/
 /legalist-service/target/
 /legalist-webapp/nbproject/
+/legalist-webapp/nbactions.xml
+/nb-configuration.xml

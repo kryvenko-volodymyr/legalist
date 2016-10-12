@@ -44,6 +44,25 @@ public class StubDataLoaderImpl implements StubDataLoader {
         createNodes();
     }
 
+    private void createNodes() {
+        Node rootFullNode = nodeService.create("Root Full Node",
+                "This is the ROOT FULL node");
+        createChildNodes(3, rootFullNode);
+        for (Node childNode : rootFullNode.getChildNodes()) {
+            createChildNodes(3, childNode);
+        }
+        
+        Node rootSimpleNode = nodeService.create("Root Simple Node",
+                "This is the ROOT SIMPLE node");
+        rootSimpleNode.setReferredNode(rootFullNode);
+        
+        createChildNodes(3, rootSimpleNode);
+        for (Node childNode : rootSimpleNode.getChildNodes()) {
+            childNode.setReferredNode(rootFullNode);
+            rootFullNode.getReferringNodes().add(childNode);
+        }
+    }
+
     private void createChildNodes(int quantity, Node parentNode) {
         for (int i = 1; i <= quantity; i++) {
             String title = "Node #" + throughCounter++;
@@ -53,26 +72,6 @@ public class StubDataLoaderImpl implements StubDataLoader {
             parentNode.getChildNodes().add(newChildNode);
         }
         nodeService.update(parentNode);
-    }
-
-    private void createNodes() {
-        Node rootFullNode = nodeService.create("Root Full Node",
-                "This is the ROOT FULL node");
-
-        createChildNodes(3, rootFullNode);
-
-        for (Node childNode : rootFullNode.getChildNodes()) {
-            createChildNodes(3, childNode);
-        }
-
-        Node rootSimpleNode = nodeService.create("Root Simple Node",
-                "This is the ROOT SIMPLE node");
-        createChildNodes(3, rootSimpleNode);
-
-        for (Node childNode : rootSimpleNode.getChildNodes()) {
-            childNode.setReferredNode(rootFullNode);
-            rootFullNode.getReferringNodes().add(childNode);
-        }
     }
 
 }

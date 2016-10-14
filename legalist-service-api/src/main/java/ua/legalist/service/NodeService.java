@@ -2,6 +2,7 @@ package ua.legalist.service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import ua.legalist.model.Node;
 
 public interface NodeService {
@@ -26,10 +27,10 @@ public interface NodeService {
     Node getUltimategetReferredNode (Node node);
     
     /*
-    * Returns Collection<Node> of nodes
+    * Returns Set<Node> of nodes
     * from the root node up to the Node argument
     */
     List<Node> getNodeGenealogy (Node node);
 
-    public Collection<Node> getNodeChildNodes(int nodeId);
+    public Set<Node> getNodeChildNodes(int nodeId);
 }

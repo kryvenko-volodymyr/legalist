@@ -2,7 +2,6 @@ package ua.legalist.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -34,14 +33,14 @@ public class Node implements Serializable {
 
     @JsonIgnore
     @ManyToMany
-    private Collection<Template> templates;
+    private Set<Template> templates;
 
     @ManyToMany(mappedBy = "nodes", fetch = FetchType.EAGER)
-    private Collection<Field> fields;
+    private Set<Field> fields;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "parentNode")
-    private Collection<Node> childNodes;
+    @OneToMany(mappedBy = "parentNode", fetch = FetchType.LAZY)
+    private Set<Node> childNodes;
 
     //@JoinColumn(name = "parent_node", referencedColumnName = "id")
     @JsonIgnore
@@ -50,7 +49,7 @@ public class Node implements Serializable {
 
     @JsonIgnore
     @OneToMany(mappedBy = "referredNode")
-    private Collection<Node> referringNodes;
+    private Set<Node> referringNodes;
 
     @ManyToOne
     private Node referredNode;
@@ -60,10 +59,10 @@ public class Node implements Serializable {
      */
 //    @JsonIgnore
 //    @ManyToMany(mappedBy = "nodes")
-//    private Collection<Process> processes;
+//    private Set<Process> processes;
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "currentNode")
-    private Collection<Process> processes;
+    private Set<Process> processes;
 
     public Node() {
     }
@@ -102,27 +101,27 @@ public class Node implements Serializable {
         this.details = details;
     }
 
-    public Collection<Template> getTemplates() {
+    public Set<Template> getTemplates() {
         return templates;
     }
 
-    public void setTemplates(Collection<Template> templates) {
+    public void setTemplates(Set<Template> templates) {
         this.templates = templates;
     }
 
-    public Collection<Field> getFields() {
+    public Set<Field> getFields() {
         return fields;
     }
 
-    public void setFields(Collection<Field> fields) {
+    public void setFields(Set<Field> fields) {
         this.fields = fields;
     }
 
-    public Collection<Node> getChildNodes() {
+    public Set<Node> getChildNodes() {
         return childNodes;
     }
 
-    public void setChildNodes(Collection<Node> childNodes) {
+    public void setChildNodes(Set<Node> childNodes) {
         this.childNodes = childNodes;
     }
 
@@ -134,11 +133,11 @@ public class Node implements Serializable {
         this.parentNode = parentNode;
     }
 
-    public Collection<Node> getReferringNodes() {
+    public Set<Node> getReferringNodes() {
         return referringNodes;
     }
 
-    public void setReferringNodes(Collection<Node> referringNodes) {
+    public void setReferringNodes(Set<Node> referringNodes) {
         this.referringNodes = referringNodes;
     }
 
@@ -150,11 +149,11 @@ public class Node implements Serializable {
         this.referredNode = referredNode;
     }
 
-    public Collection<Process> getProcesses() {
+    public Set<Process> getProcesses() {
         return processes;
     }
 
-    public void setProcesses(Collection<Process> processes) {
+    public void setProcesses(Set<Process> processes) {
         this.processes = processes;
     }
 

@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -88,9 +89,9 @@ public class NodeServiceImpl implements NodeService {
     }
 
     @Override
-    public Collection<Node> getNodeChildNodes(int nodeId) {
+    public Set<Node> getNodeChildNodes(int nodeId) {
         Node persistentNode = getNodeById(nodeId);
-        Collection<Node> childNodesDTO = new HashSet();
+        Set<Node> childNodesDTO = new HashSet();
         for (Node node : persistentNode.getChildNodes()) {
             childNodesDTO.add(node);
         }

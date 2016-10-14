@@ -29,7 +29,7 @@ public class UsersREST {
         return userService.getUserById(userId);
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<Void> usersPost(
             @RequestParam(name = "email", required = true) String email,
             @RequestParam(name = "password", required = true) String password,

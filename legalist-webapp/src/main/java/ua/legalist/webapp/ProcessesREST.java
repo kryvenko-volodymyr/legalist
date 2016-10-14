@@ -31,7 +31,7 @@ public class ProcessesREST {
         return processService.getProcessById(processId);
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<Void> processesPost(@RequestBody Node detachedNode, UriComponentsBuilder ucBuilder) {
         Process persistentProcess = processService.createProcess(detachedNode);
         HttpHeaders headers = new HttpHeaders();

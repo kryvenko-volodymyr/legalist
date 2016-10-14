@@ -2,16 +2,15 @@ package ua.legalist.service;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import ua.legalist.model.Node;
 
 public interface NodeService {
 
-    Collection<Node> getAll();
+    Collection<Node> getAllNodes();
 
-    Map<Node,Map> getFullHierarchy();
+    NodeDTO getFullHierarchy();
     
-    Map<Node,Map> getSimpleHierarchy();
+//    Map<Node,Map> getSimpleHierarchy();
 
     Node getNodeById(int nodeId);
     

@@ -3,6 +3,8 @@ package ua.legalist.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Objects;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,8 +12,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -61,11 +61,10 @@ public class Node implements Serializable {
 //    @JsonIgnore
 //    @ManyToMany(mappedBy = "nodes")
 //    private Collection<Process> processes;
-
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "currentNode")
     private Collection<Process> processes;
-    
+
     public Node() {
     }
 
@@ -161,19 +160,24 @@ public class Node implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 3;
+        hash = 47 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Node)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        Node other = (Node) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Node other = (Node) obj;
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
@@ -181,6 +185,6 @@ public class Node implements Serializable {
 
     @Override
     public String toString() {
-        return "ua.legalist.model.Node[ id=" + id + " ]";
+        return "Node{" + "id=" + id + ", title=" + title + ", templates=" + templates + ", fields=" + fields + '}';
     }
 }

@@ -5,13 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import ua.legalist.service.NodeService;
-import ua.legalist.service.util.StubDataLoader;
 
 @Controller
 public class JspDispatcher {
-
-    @Autowired
-    StubDataLoader stubDataLoader;
 
     @Autowired
     NodeService nodeService;

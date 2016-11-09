@@ -13,8 +13,8 @@
         
 
         <security:authorize access="not isAuthenticated()">
-            <h3>Home</h3>
-            <form name='login' action='/legalist/login' method='POST'>
+            <h3>This is custom index JSP</h3>
+            <form name='login' action='login' method='POST'>
                 <table>
                     <tr><td>User:</td><td>
                             <input type='text' name='username' value=''></td></tr>

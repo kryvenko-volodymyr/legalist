@@ -58,4 +58,10 @@ public class UserServiceImpl implements UserService {
     private void requestEmailCofirmatin(User user) {
         emailConfirmationManager.sendEmailConfirmationRequest(user);
     }
+
+    //TODO
+    @Override
+    public User getUserByEmail(String username) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

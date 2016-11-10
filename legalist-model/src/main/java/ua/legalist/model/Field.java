@@ -12,6 +12,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+//TODO: подумать: добавить поле - список имен таблиц, в которых нужно искать значения данного поля
+
 @Entity
 public class Field implements Serializable {
 

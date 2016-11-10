@@ -7,16 +7,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ua.legalist.service.NodeService;
 
+/*
+* Spring MVC uses handler method names as mappings to .jsp
+*/
+
 @Controller
 public class JspDispatcher {
 
     @Autowired
     NodeService nodeService;
 
-//    @GetMapping("/")
-//    public String defauldPath() {
-//        return "redirect:/index";
-//    }
+    @GetMapping("")
+    public String defauldPath() {
+        return "redirect:/index";
+    }
 
     @GetMapping("/index")
     public Model index(Model model) {
@@ -28,8 +32,8 @@ public class JspDispatcher {
         return model;
     }
 
-//    @RequestMapping("/login")
-//    public Model login (Model model) {
-//        return model;
-//    }
+    @RequestMapping("/login")
+    public Model login (Model model) {
+        return model;
+    }
 }

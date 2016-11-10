@@ -50,17 +50,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     //TODO: set  proper resource paths
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/webjars/**", "/images/**", "/oauth/uncache_approvals", "/oauth/cache_approvals");
+        web
+            .ignoring()
+                .antMatchers("/webjars/**", "/images/**", "/oauth/uncache_approvals", "/oauth/cache_approvals")
+                ;
     }
     
     
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        //taken exactly from the sample code. Not sure why this works
         http
             .authorizeRequests()
-                .antMatchers("/login.jsp").permitAll()
-                .anyRequest().hasRole("USER")
+                .anyRequest().permitAll()
+                .antMatchers("/oauth/authorize").hasRole("USER")
                 .and()
             .exceptionHandling()
                 .accessDeniedPage("/login?authorization_error=true")
@@ -71,12 +73,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .disable()
             .logout()
             	.logoutUrl("/logout")
-                .logoutSuccessUrl("/login.jsp")
+                .logoutSuccessUrl("/index")
                 .and()
             .formLogin()
             	.loginProcessingUrl("/login")
-                .failureUrl("/login.jsp?authentication_error=true")
-                .loginPage("/login.jsp")
+                .failureUrl("/login?authentication_error=true")
+                .loginPage("/login")
                 ;
     }
     

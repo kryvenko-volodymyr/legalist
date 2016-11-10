@@ -1,29 +1,58 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Legalist login custom page</title>
-    </head>
-    <body onload='document.f.username.focus();'>
-        <h3>Custom login with Username and Password</h3>
-        <form name='f' action='/legalist/login' method='POST'>
-            <table>
-                <tr><td>User:</td><td>
-                        <input type='text' name='username' value=''></td></tr>
-                <tr><td>Password:</td>
-                    <td><input type='password' name='password'/></td></tr>
-                <tr><td colspan='2'>
-                        <input name="submit" type="submit" value="Login"/></td></tr>
-                <tr><td colspan='2'>
-                        <input id="remember_me" name="remember-me" type="checkbox"/>
-                        <label for="remember_me" class="inline">Remember me</label>
-                    </td></tr>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>vse_prosto</title>
 
-                <input type="hidden"
-                       name="${_csrf.parameterName}"
-                       value="${_csrf.token}" />
-            </table>
-        </form>
-    </body>
+</head>
+
+<body>
+
+	<div class="container">
+
+		<h1>vse prosto</h1>
+
+		<c:if test="${not empty param.authentication_error}">
+			<h1>Woops!</h1>
+
+			<p class="error">Your login attempt was not successful.</p>
+		</c:if>
+		<c:if test="${not empty param.authorization_error}">
+			<h1>Woops!</h1>
+
+			<p class="error">You are not permitted to access that resource.</p>
+		</c:if>
+
+		<div class="form-horizontal">
+			
+			<form action="<c:url value="/login"/>" method="post" role="form">
+				<fieldset>
+					<legend>
+						<h2>Login</h2>
+					</legend>
+					<div class="form-group">
+						<label for="username">Username:</label> <input id="username"
+							class="form-control" type='text' name='username'
+							value="john" />
+					</div>
+					<div class="form-group">
+						<label for="password">Password:</label> <input id="password"
+							class="form-control" type='text' name='password' value="123" />
+					</div>
+					<button class="btn btn-primary" type="submit">Login</button>
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" />
+				</fieldset>
+			</form>
+
+		</div>
+
+		
+
+	</div>
+
+
+</body>
 </html>

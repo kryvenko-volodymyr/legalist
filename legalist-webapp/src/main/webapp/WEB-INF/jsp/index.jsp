@@ -7,35 +7,56 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>legalist.ua</title>
+        <script>
+            //builds oauth/authorization link depending on the webapp hostname
+            window.onload = function () {
+                var origin = document.location.origin;
+                var href = document.location.href;
+                
+                var tokenQuery = '/oauth/authorize?response_type=token&client_id=vseprosto&redirect_uri=' + href + '&scope=read';
+
+                var getAccessTokenLink = document.getElementById("get-access-token");
+                if (getAccessTokenLink) getAccessTokenLink.setAttribute('href', origin + tokenQuery);
+            }
+        </script>
+
+        <script type='text/javascript'>
+            var url = document.location;
+            var hash = url.hash;
+            var accessToken;
+
+            if (hash) {
+                accessToken = hash.split('&').filter(function (el) {
+                    if (el.match('access_token') !== null)
+                        return true;
+                })[0].split('=')[1];
+                document.cookie = "access-token=" + accessToken;
+            }
+
+            console.log(document.cookie);
+        </script>
+
     </head>
 
     <body>
-        
+        <h1>vse prosto</h1>
+        <h2>Custom index.jsp</h2>
 
         <security:authorize access="not isAuthenticated()">
-            <h3>This is custom index JSP</h3>
-            <form name='login' action='login' method='POST'>
-                <table>
-                    <tr><td>User:</td><td>
-                            <input type='text' name='username' value=''></td></tr>
-                    <tr><td>Password:</td>
-                        <td><input type='password' name='password'/></td></tr>
-                    <tr><td colspan='2'>
-                            <input name="submit" type="submit" value="Login"/></td></tr>
-                    <tr><td colspan='2'>
-                            <input id="remember_me" name="remember-me" type="checkbox"/>
-                            <label for="remember_me" class="inline">Remember me</label>
-                        </td></tr>
+            <p>NOT authenticated at authorization server</p>
+            <a id='get-access-token' href=''>
+                Authenticate and get token
+            </a>
+        </security:authorize>
 
-                    <input type="hidden"
-                           name="${_csrf.parameterName}"
-                           value="${_csrf.token}" />
-                </table>
-            </form>
-        </security:authorize>
         <security:authorize access="isAuthenticated()">
+            <p>Successfully authenticated as 
+                <a href='user'>
+                    <security:authentication property="principal.username"/>
+                </a>.
+            </p>
             <a href='logout'>Logout</a>
-            <h3>Hello <a href='user'><security:authentication property="principal.username"/></a></h3>
         </security:authorize>
+
     </body>
 </html>

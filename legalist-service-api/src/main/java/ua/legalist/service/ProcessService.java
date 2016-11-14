@@ -9,6 +9,8 @@ public interface ProcessService {
     Process getProcessById(int processId);
 
     Process createProcess(Node node);
+    
+    Process createProcess(int nodeId);
 
     void processAddNode(int processId, int nodeId);
 

@@ -31,11 +31,25 @@ public class ProcessesREST {
         return processService.getProcessById(processId);
     }
 
+//    @PostMapping("")
+//    public ResponseEntity<Void> processesPost(@RequestBody Node detachedNode, UriComponentsBuilder ucBuilder) {
+//        Process persistentProcess = processService.createProcess(detachedNode);
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setLocation(ucBuilder.path("/api/processes/{id}").buildAndExpand(persistentProcess.getId()).toUri());
+//        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+//    }
     @PostMapping("")
-    public ResponseEntity<Void> processesPost(@RequestBody Node detachedNode, UriComponentsBuilder ucBuilder) {
-        Process persistentProcess = processService.createProcess(detachedNode);
+    public ResponseEntity<Void> processesPost(
+            @RequestParam("nodeId") int nodeId,
+            UriComponentsBuilder ucBuilder) {
+        Process persistentProcess = processService.createProcess(nodeId);
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/api/processes/{id}").buildAndExpand(persistentProcess.getId()).toUri());
+        headers.setLocation(
+                ucBuilder
+                    .path("/api/processes/{id}")
+                    .buildAndExpand(persistentProcess.getId())
+                    .toUri()
+        );
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
@@ -48,9 +62,9 @@ public class ProcessesREST {
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    
+
     @GetMapping("/{processId}/nodes")
-    public List<Node> processNodesGet (@PathVariable int processId) {
+    public List<Node> processNodesGet(@PathVariable int processId) {
         return processService.getProcessPath(processId);
     }
 

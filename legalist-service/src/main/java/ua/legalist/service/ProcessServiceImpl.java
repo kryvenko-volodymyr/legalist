@@ -31,10 +31,11 @@ public class ProcessServiceImpl implements ProcessService {
     // and make Process.user "optional = false"
     @Override
     public Process createProcess(Node detachedNode) {
-        Node persistentNode = nodeService.getNodeById(detachedNode.getId());
-        Process transientProcess = processFactory.newProcess(persistentNode);
-        Process persistentProcess = processDao.create(transientProcess);
-        return persistentProcess;
+        return createProcess(detachedNode.getId());
+//        Node persistentNode = nodeService.getNodeById(detachedNode.getId());
+//        Process transientProcess = processFactory.newProcess(persistentNode);
+//        Process persistentProcess = processDao.create(transientProcess);
+//        return persistentProcess;
     }
 
     @Override
@@ -63,6 +64,14 @@ public class ProcessServiceImpl implements ProcessService {
         Process persistentProcess = getProcessById(processId);
         Node persistentCurrentNode = persistentProcess.getCurrentNode();
         return nodeService.getNodeGenealogy(persistentCurrentNode);
+    }
+
+    @Override
+    public Process createProcess(int nodeId) {
+        Node persistentNode = nodeService.getNodeById(nodeId);
+        Process transientProcess = processFactory.newProcess(persistentNode);
+        Process persistentProcess = processDao.create(transientProcess);
+        return persistentProcess;
     }
 
 }

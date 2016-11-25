@@ -15,7 +15,6 @@ public class ProcessFactoryImpl implements ProcessFactory {
     @Override
     public Process newProcess(Node persistentNode) {
         Process trnasientProcess = new Process();
-        trnasientProcess.setFieldCollection(new HashSet<Field>());
         trnasientProcess.setCurrentNode(persistentNode);
         return trnasientProcess;
     }

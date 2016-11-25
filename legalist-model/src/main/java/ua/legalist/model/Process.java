@@ -50,9 +50,9 @@ public class Process implements Serializable {
     /**
      * Fields specific to this process
      */
-    @JsonIgnore
-    @OneToMany(mappedBy = "process")
-    private Collection<Field> fieldCollection;
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "process")
+//    private Collection<Field> fieldCollection;
     
     public Process() {
     }
@@ -83,14 +83,6 @@ public class Process implements Serializable {
 
     public void setCurrentNode(Node currentNode) {
         this.currentNode = currentNode;
-    }
-
-    public Collection<Field> getFieldCollection() {
-        return fieldCollection;
-    }
-
-    public void setFieldCollection(Collection<Field> fieldCollection) {
-        this.fieldCollection = fieldCollection;
     }
 
     @Override

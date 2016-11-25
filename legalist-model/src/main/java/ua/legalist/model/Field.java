@@ -13,7 +13,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 //TODO: подумать: добавить поле - список имен таблиц, в которых нужно искать значения данного поля
-
 @Entity
 public class Field implements Serializable {
 
@@ -30,23 +29,8 @@ public class Field implements Serializable {
     @Basic(optional = false)
     private String details;
 
-    /**
-     * If there are several similar fields for the same process (e.g. several
-     * children), such fields are divided into bunches.
-     *
-     */
-    private Integer bunch;
-
-//    @JoinTable(name = "node-field",
-//            joinColumns = {
-//                @JoinColumn(name = "field", referencedColumnName = "id")},
-//            inverseJoinColumns = {
-//                @JoinColumn(name = "node", referencedColumnName = "id")})
     @ManyToMany
     private Collection<Node> nodes;
-
-    @ManyToOne
-    private Process process;
 
     public Field() {
     }
@@ -85,28 +69,12 @@ public class Field implements Serializable {
         this.details = details;
     }
 
-    public Integer getBunch() {
-        return bunch;
-    }
-
-    public void setBunch(Integer bunch) {
-        this.bunch = bunch;
-    }
-
     public Collection<Node> getNodes() {
         return nodes;
     }
 
     public void setNodes(Collection<Node> nodes) {
         this.nodes = nodes;
-    }
-
-    public Process getProcess() {
-        return process;
-    }
-
-    public void setProcess(Process process) {
-        this.process = process;
     }
 
     @Override
